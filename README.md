@@ -4,7 +4,7 @@ Cisco Packet Tracer is a great tool for learning about networking (and more).
 
 One shortcoming with it is that when you place/move devices in the logical workspace, they are very difficult to align and so your network topologies look unprofessional.
 
-Packet Tracer has an option called "Align logical workspace objects" which attempts to offer some alignment as you move devices. The problem is, it doesn't work properly and often makes things worse.
+Packet Tracer has an option called *Align logical workspace objects* which attempts to offer some alignment as you move devices. The problem is, it doesn't work properly and often makes things worse.
 
 Introducing **Packet Tracer Align To Grid**!
 
@@ -16,7 +16,7 @@ Introducing **Packet Tracer Align To Grid**!
 
 2. In Packet Tracer, click **Exensions** > **Scripting** > **Configure PT Script Modules**
 
-3. Click the **Add...** button and locate AlignToGrid.pts
+3. Click the **Add...** button and locate **AlignToGrid.pts**
 
 ## Use
 
