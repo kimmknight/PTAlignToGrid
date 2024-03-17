@@ -31,6 +31,7 @@ AlignToGrid.prototype.cleanUp = function () {
 
 AlignToGrid.prototype.alignDevicesMenuClicked = function (src, args) {
     alignDevices();
+    alignClusters();
 };
 
 AlignToGrid.prototype.alignShapesMenuClicked = function (src, args) {
@@ -55,7 +56,6 @@ function alignDevices(gridSize = 100) {
 
 function alignShapes(gridSize = 50) {
     var lw = ipc.appWindow().getActiveWorkspace().getLogicalWorkspace();
-    // var deviceCount = ipc.network().getDeviceCount();
     var canvasItemIds = lw.getCanvasItemIds();
 
     for (var canvasItemId of canvasItemIds) {
@@ -65,9 +65,25 @@ function alignShapes(gridSize = 50) {
         x = Math.round(x / gridSize) * gridSize;
         y = Math.round(y / gridSize) * gridSize;
 
-        // device.moveToLocationCentered(x, y);
         lw.setCanvasItemX(canvasItemId, x);
         lw.setCanvasItemY(canvasItemId, y);
+    }
+}
+
+function alignClusters(gridSize = 100) {
+    var lw = ipc.appWindow().getActiveWorkspace().getLogicalWorkspace();
+    var clusterCount = lw.getCurrentCluster().getChildClusterCount();
+
+    for (var c = 0; c < clusterCount; c++) {
+        var cluster = lw.getCurrentCluster().getChildClusterAt(c);
+
+        var x = cluster.getCenterXCoordinate();
+        var y = cluster.getCenterYCoordinate();
+
+        x = Math.round(x / gridSize) * gridSize;
+        y = Math.round(y / gridSize) * gridSize;
+
+        cluster.moveToLocationCentered(x, y)
     }
 }
 
