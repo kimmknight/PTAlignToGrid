@@ -1,6 +1,7 @@
 function AlignToGrid() {
     this.aligndevices_menuitemuuid = "";
     this.alignshapes_menuitemuuid = "";
+    this.alignnotes_menuitemuuid = "";
 }
 
 AlignToGrid.prototype.init = function () {
@@ -13,6 +14,10 @@ AlignToGrid.prototype.init = function () {
     this.alignshapes_menuitemuuid = menu.insertItem("", "Align shapes to grid");
     var menuItem = menu.getMenuItemByUuid(this.alignshapes_menuitemuuid);
     menuItem.registerEvent("onClicked", this, this.alignShapesMenuClicked);
+    
+    this.alignnotes_menuitemuuid = menu.insertItem("", "Align notes to grid");
+    var menuItem = menu.getMenuItemByUuid(this.alignnotes_menuitemuuid);
+    menuItem.registerEvent("onClicked", this, this.alignNotesMenuClicked);
 };
 
 AlignToGrid.prototype.cleanUp = function () {
@@ -26,6 +31,10 @@ AlignToGrid.prototype.cleanUp = function () {
         _ScriptModule.unregisterIpcEventByID("MenuItem", this.alignshapes_menuitemuuid, "onClicked", this, this.alignShapesMenuClicked);
         menu.removeItemUuid(this.alignshapes_menuitemuuid);
         this.alignshapes_menuitemuuid = "";
+        
+        _ScriptModule.unregisterIpcEventByID("MenuItem", this.alignnotes_menuitemuuid, "onClicked", this, this.alignNotesMenuClicked);
+        menu.removeItemUuid(this.alignnotes_menuitemuuid);
+        this.alignnotes_menuitemuuid = "";
     }
 };
 
@@ -36,6 +45,10 @@ AlignToGrid.prototype.alignDevicesMenuClicked = function (src, args) {
 
 AlignToGrid.prototype.alignShapesMenuClicked = function (src, args) {
     alignShapes();
+};
+
+AlignToGrid.prototype.alignNotesMenuClicked = function (src, args) {
+    alignNotes();
 };
 
 function alignDevices(gridSize = 100) {
@@ -51,6 +64,24 @@ function alignDevices(gridSize = 100) {
         y = Math.round(y / gridSize) * gridSize;
 
         device.moveToLocationCentered(x, y);
+    }
+}
+
+
+function alignClusters(gridSize = 100) {
+    var lw = ipc.appWindow().getActiveWorkspace().getLogicalWorkspace();
+    var clusterCount = lw.getCurrentCluster().getChildClusterCount();
+    
+    for (var c = 0; c < clusterCount; c++) {
+        var cluster = lw.getCurrentCluster().getChildClusterAt(c);
+        
+        var x = cluster.getCenterXCoordinate();
+        var y = cluster.getCenterYCoordinate();
+        
+        x = Math.round(x / gridSize) * gridSize;
+        y = Math.round(y / gridSize) * gridSize;
+        
+        cluster.moveToLocationCentered(x, y)
     }
 }
 
@@ -70,20 +101,18 @@ function alignShapes(gridSize = 50) {
     }
 }
 
-function alignClusters(gridSize = 100) {
+function alignNotes(gridSize = 15) {
     var lw = ipc.appWindow().getActiveWorkspace().getLogicalWorkspace();
-    var clusterCount = lw.getCurrentCluster().getChildClusterCount();
+    var noteIds = lw.getCanvasNoteIds();
 
-    for (var c = 0; c < clusterCount; c++) {
-        var cluster = lw.getCurrentCluster().getChildClusterAt(c);
-
-        var x = cluster.getCenterXCoordinate();
-        var y = cluster.getCenterYCoordinate();
+    for (var noteId of noteIds) {
+        var x = lw.getCanvasItemRealX(noteId);
+        var y = lw.getCanvasItemRealY(noteId);
 
         x = Math.round(x / gridSize) * gridSize;
         y = Math.round(y / gridSize) * gridSize;
 
-        cluster.moveToLocationCentered(x, y)
+        lw.setCanvasItemRealPos(noteId, x, y);
     }
 }
 
