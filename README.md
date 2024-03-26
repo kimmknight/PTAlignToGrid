@@ -22,7 +22,7 @@ Introducing **Packet Tracer Align To Grid**!
 
 Once installed, you can:
 
-- Align devices to grid at any time by clicking **Extensions** > **Align devices to grid**
+- Align devices to grid by clicking **Extensions** > **Align devices to grid**
 - Align shapes by clicking **Extensions** > **Align shapes to grid**
 - Align notes by clicking **Extensions** > **Align notes to grid**
 
