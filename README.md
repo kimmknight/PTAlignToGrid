@@ -20,10 +20,14 @@ Introducing **Packet Tracer Align To Grid**!
 
 ## Use
 
-Once installed, you can align devices to grid at any time by clicking **Extensions** > **Align devices to grid**.
+Once installed, you can:
 
-You can also align shapes by clicking **Extensions** > **Align shapes to grid**.
+- Align devices to grid at any time by clicking **Extensions** > **Align devices to grid**
+- Align shapes by clicking **Extensions** > **Align shapes to grid**
+- Align notes by clicking **Extensions** > **Align notes to grid**
 
 # Notes
 
-- Devices align to a 100x100 grid whereas shapes align to a 50x50 grid.
+- Devices align to a 100x100 grid
+- Shapes align to a 50x50 grid
+- Notes align to a 15x15 grid
