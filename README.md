@@ -26,8 +26,8 @@ Once installed, you can:
 - Align shapes by clicking **Extensions** > **Align shapes to grid**
 - Align notes by clicking **Extensions** > **Align notes to grid**
 
-# Notes
+# Configuration
 
-- Devices align to a 100x100 grid
-- Shapes align to a 50x50 grid
-- Notes align to a 15x15 grid
+By default devices align to a 100x100 grid, shapes to a 50x50 grid, and notes to a 15x15 grid.
+
+You can adjust these values by opening **Extensions** > **AlignToGrid Settings...**
